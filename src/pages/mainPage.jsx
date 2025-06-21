@@ -9,7 +9,7 @@ const MainPage = () => {
 
     const getUserpost = async () => {
         try {
-            const res = await fetch('https://sriyx.wuaze.com/filemanager.ai/new/saBlog/control.php', {
+            const res = await fetch('https://sriyx.wuaze.com/saBlog/control.php', {
                 method: 'GET'
             })
             const data = await res.json()
@@ -116,7 +116,7 @@ const MainPage = () => {
                             {item.media_type == 'video/mp4' ? (
                                 <>
                                     <video
-                                        src={`http://localhost/PHP/saBlog${item.media}`}
+                                        src={`https://sriyx.wuaze.com/saBlog${item.media}`}
                                         className='w-full h-[250px] object-cover object-center bg-transparent'
                                         controls
                                         controlsList='nodownload'></video>
@@ -125,7 +125,7 @@ const MainPage = () => {
                                 <>
                                     <img
                                         className='w-full h-[250px] object-cover object-center bg-transparent'
-                                        src={`http://localhost/PHP/saBlog${item.media}`}
+                                        src={`https://sriyx.wuaze.com/saBlog${item.media}`}
                                         alt="image post"
                                         loading='lazy'
                                     />

@@ -34,7 +34,7 @@ const PostPage = () => {
         // }
 
         try {
-            const res = await fetch('https://sriyx.wuaze.com/filemanager.ai/new/saBlog/control.php', {
+            const res = await fetch('https://sriyx.wuaze.com/saBlog/control.php', {
                 method: 'POST',
                 body: formData
             })
