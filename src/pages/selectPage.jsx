@@ -11,7 +11,7 @@ const SelectPage = () => {
     const getSelectedUserPost = useCallback(
         async () => {
             try {
-                const res = await fetch(`/api/posts?postId=${postId}`, {
+                const res = await fetch(`https://sriyx.wuaze.com/saBlog/control.php?postId=${postId}`, {
                     method: 'GET'
                 })
                 const data = await res.json()

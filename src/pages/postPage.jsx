@@ -29,12 +29,9 @@ const PostPage = () => {
         formData.append('name', name)
         formData.append('text_content', text_content)
         formData.append('media', file)
-        // for (let pair of formData.entries()) {
-        //     console.log(pair[0], pair[1])
-        // }
 
         try {
-            const res = await fetch('/api/posts', {
+            const res = await fetch('https://sriyx.wuaze.com/saBlog/control.php', {
                 method: 'POST',
                 body: formData
             })

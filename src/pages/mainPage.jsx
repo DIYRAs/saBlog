@@ -8,7 +8,7 @@ const MainPage = () => {
 
     const getUserpost = async () => {
         try {
-            const res = await fetch('/api/posts', {
+            const res = await fetch('https://sriyx.wuaze.com/saBlog/control.php', {
                 method: 'GET'
             })
             const data = await res.json()
