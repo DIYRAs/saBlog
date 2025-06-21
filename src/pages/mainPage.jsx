@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Button from '../components/button'
 import { useNavigate } from 'react-router-dom'
 import Navigation from '../components/navigation'
 
@@ -9,7 +8,7 @@ const MainPage = () => {
 
     const getUserpost = async () => {
         try {
-            const res = await fetch('https://sriyx.wuaze.com/saBlog/control.php', {
+            const res = await fetch('/api/posts', {
                 method: 'GET'
             })
             const data = await res.json()
@@ -41,38 +40,8 @@ const MainPage = () => {
         e.stopPropagation()
     }
 
-    // const post = []
-    // for (let i = 0; i < 30; i++) {
-    //     post.push(
-    //         <div onClick={directToSelect}
-    //             key={i} className='h-[470px] cursor-auto w-[400px] max-h-[470px] max-w-[400px] border flex justify-end flex-col space-y-2'>
-    //             <p className='p-3 overflow-x-auto font-bold max-w-54'
-    //                 style={{ scrollbarWidth: 'none' }}>DIYRjjjjjjjjjjjjjjjjllllllllllllllllllllllljjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjA</p>
-    //             <p className='px-3 max-h-[125px] overflow-y-scroll'
-    //                 style={{ scrollbarWidth: 'thin' }}
-    //                 onClick={handlePropagation}>
-    //                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio deserunt,
-    //                 possimus ea officiis dolorum ex, perferendis nulla iure similique sequi
-    //                 possimus ea officiis dolorum ex, perferendis nulla iure similique sequi
-    //                 possimus ea officiis dolorum ex, perferendis nulla iure similique sequi
-    //                 tempora inventore! Aut, voluptatum tempore sint iste ea ullam nam.</p>
-    //             <img
-    //                 className='w-full h-[250px] object-cover object-center'
-    //                 src="vertin.jpg"
-    //                 alt="image post"
-    //                 loading='lazy' />
-    //             <div className='h-[50px] flex justify-around'>
-    //                 <button onClick={handlePropagation} className='btn btn-dash'>Like</button>
-    //                 <button className='btn btn-dash'>Comment</button>
-    //                 <button onClick={handlePropagation} className='btn btn-dash'>Share</button>
-    //             </div>
-    //         </div>
-    //     )
-    // }
-
     return (
         <div className='flex flex-col lg:flex-row w-full lg:h-screen h-[140vh] text-teal-950 bg-zinc-300'>
-            {/* <button onClick={click}>click</button> */}
             {/* SIDE or NAVBAR */}
             <Navigation />
             {/* END SIDE or NAVBAR */}
@@ -138,7 +107,6 @@ const MainPage = () => {
                             </div>
                         </div>
                     ))}
-                    {/* {post.map(item => item)} */}
                     {/* END USER POST */}
                 </div>
                 {/* END POST SECTION */}
