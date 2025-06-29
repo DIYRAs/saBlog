@@ -1,7 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '../components/button'
+import { useEffect } from 'react'
 
 const Navigation = () => {
+    const [username, setUsername] = useState()
+    useEffect(() => {
+        if (localStorage.getItem('username')) {
+            setUsername(localStorage.getItem('username'))
+            console.log(`username: ${username}`)
+        }
+    }, [username])
+
+    // const getUserProfile = useCallback(async () => {
+    //     const formData = new FormData()
+    //     formData.append('input', username)
+    //     try {
+    //         const res = await fetch('http://localhost/PHP/saBlog/control.php?action=getProfile', {
+    //             method: 'POST',
+    //             body: formData
+    //         })
+    //         const data = await res.json()
+    //         console.log(data)
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // }, [username])
+    // useEffect(() => {
+    //     getUserProfile()
+    // }, [getUserProfile])
 
     return (
         <>
@@ -16,10 +42,20 @@ const Navigation = () => {
                         <Button text={'POST'} page={'post'} />
                         <Button text={'HOME'} page={''} />
                     </div>
-                    {/* <div className='self-end space-y-3'>
-                        <Button text={'Register'} />
-                        <Button text={'Login'} />
-                    </div> */}
+                    {!username?.trim() ? (
+                        <>
+                            <div className='self-end space-y-3'>
+                                <Button text={'Register'} page={'entries'} />
+                                <Button text={'Login'} page={'entries'} />
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className='self-end text-xl'>
+                                <p>username: <span className='font-semibold'>{username}</span></p>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
             {/* END DESKTOP */}
@@ -34,8 +70,18 @@ const Navigation = () => {
                             className='p-2 mt-3 space-y-4 shadow w-36 menu menu-sm dropdown-content bg-zinc-700 rounded-box z-1'>
                             <li> <Button text={'POST'} page={'post'} /></li>
                             <li> <Button text={'HOME'} page={''} /></li>
-                            {/* <li> <Button text={'Register'} /></li>
-                            <li> <Button text={'Login'} /></li> */}
+                            {!username?.trim() ? (
+                                <>
+                                    <li> <Button text={'Register'} page={'entries'} /></li>
+                                    <li> <Button text={'Login'} page={'entries'} /></li>
+                                </>
+                            ) : (
+                                <>
+                                    <div className=''>
+                                        <p>username: {username}</p>
+                                    </div>
+                                </>
+                            )}
                         </ul>
                     </div>
                 </div>

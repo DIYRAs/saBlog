@@ -1,13 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../components/button'
 import { useNavigate } from 'react-router-dom'
 import Navigation from '../components/navigation'
 
 const PostPage = () => {
+    const [username, setUsername] = useState()
     const [form, setForm] = useState({ name: '', text_content: '', file: null })
     const { name, text_content, file } = form
     const [showPopup, setShowPopup] = useState(false)
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (localStorage.getItem('username')) {
+            setUsername(localStorage.getItem('username'))
+            setForm({ name: username })
+            console.log(username)
+        }
+    }, [username])
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -20,7 +29,11 @@ const PostPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setShowPopup(true)
+        if (username) {
+            handleProceed()
+        } else {
+            setShowPopup(true)
+        }
     }
 
     const handleProceed = async () => {
@@ -31,20 +44,20 @@ const PostPage = () => {
         formData.append('media', file)
 
         try {
-            const res = await fetch('https://sriyx.wuaze.com/saBlog/control.php', {
+            const res = await fetch('http://localhost/PHP/saBlog/control.php', {
                 method: 'POST',
                 body: formData
             })
             const data = await res.json()
+            console.log(data)
             if (res.ok) {
-                console.log(data)
+                alert("Posting berhasil")
+                navigate('/')
             }
         } catch (err) {
             console.error(err);
         }
 
-        alert("Posting berhasil (simulasi)")
-        navigate('/')
     }
 
     return (
@@ -59,17 +72,35 @@ const PostPage = () => {
 
                 <form
                     onSubmit={handleSubmit}
-                    className='flex flex-col w-full max-w-2xl gap-5 p-5 bg-white rounded-lg shadow'
-                >
-                    <input
-                        name='name'
-                        type='text'
-                        className='px-4 py-2 border border-gray-400 rounded-md outline-none'
-                        placeholder='Enter your name'
-                        value={name}
-                        onChange={handleInputChange}
-                        required
-                    />
+                    className='flex flex-col w-full max-w-2xl gap-5 p-5 bg-white rounded-lg shadow'>
+
+                    {username ? (
+                        <>
+                            <input
+                                disabled
+                                name='name'
+                                type='text'
+                                className='px-4 py-2 border border-gray-400 rounded-md outline-none bg-gray-500/40'
+                                value={username}
+                            // placeholder='Enter your name'
+                            // onChange={handleInputChange}
+                            // required
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <input
+                                name='name'
+                                type='text'
+                                className='px-4 py-2 border border-gray-400 rounded-md outline-none'
+                                placeholder='Enter your name'
+                                value={name}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </>
+                    )}
+
                     <textarea
                         name='text_content'
                         type='text'
